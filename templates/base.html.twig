@@ -30,6 +30,7 @@
     <!-- Custom styles for this template -->
     <link href="{{ asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    {% block javascript %}{% endblock %}
 </head>
 <body>
 <header>
@@ -142,4 +143,5 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="{{ asset('assets/js/bootstrap.bundle.js')}}"></script>
 </body>
+{% block script %}{% endblock %}
 </html>
