@@ -75,3 +75,7 @@ body {
     padding: 20px;
     margin-top: 22px;
 }
+
+a.action-updateDelivery {
+    margin-right: 20px;
+}
