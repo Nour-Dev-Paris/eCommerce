@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Classe\Cart;
+use App\Classe\Mail;
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,15 @@ class OrderValidateController extends AbstractController
             $this->entityManager->flush();
             
             // Envoyer un email à un client pour confirmer la commande
+
+            $mail = new Mail();
+            $content = "Bonjour ". $order->getUser()->getFirstname(). "<br>" . "Merci pour votre commande !";
+            $mail->send(
+                $order->getUser()->getEmail(), 
+                $order->getUser()->getFirstname(), 
+                "Votre commande numéro : " . $order->getReference() . " eCommerce - Symfony", 
+                $content
+            );
         }
 
 

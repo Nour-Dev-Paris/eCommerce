@@ -19,8 +19,8 @@ class HomeController extends AbstractController
 
         $cart = $session->get('cart');
 
-        $mail = new Mail();
-        $mail->send('ionisbry@gmail.com', 'Yoka', 'Mon premier mail', 'Mon premier super mail de folie dingue dingue !');
+        // $mail = new Mail();
+        // $mail->send('ionisbry@gmail.com', 'Yoka', 'Mon premier mail', 'Mon premier super mail de folie dingue dingue !');
         
         return $this->render('home/index.html.twig');
     }
