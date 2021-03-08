@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter{% endblock %}
+
+{% block content %}
+        <h1>N'hésitez pas à nous contacter</h1>
+    <div class="row">
+        
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-info">{{message}}</div>
+        {% endfor %}
+
+        <div class="col-md-6">
+            {{form(form)}}
+        </div>
+        <div class="col-md-6">
+            <h2><strong>La Boutique eCommerce - Symfony</strong></h2>
+            <hr>
+            Téléphone: 0606600606 <br>
+            Mail: blabla@gmail.com <br>
+            Adresse : 18 rue des Lilas , 75000 - Paris
+        </div>
+    </div>
+{% endblock %}
