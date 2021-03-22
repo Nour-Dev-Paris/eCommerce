@@ -1,6 +1,24 @@
 <div class="product-item text-center">
-    <a href="{{ path('product', { 'slug' : product.slug }) }}"><img src="/uploads/{{ product.illustration }}" alt="{{ product.name }}" class="img-fluid"></a>
-    <h5>{{ product.name }}</h5>
-    <span class="product-subtitle">{{ product.subtitle }}</span><br>
-    <span class="product-price">{{ (product.price / 100) | number_format(2, ',') }} €</span>
+    <a href="{{ path('product', { 'slug' : product.slug }) }}" class="title_product">
+        <img src="/uploads/{{ product.illustration }}" alt="{{ product.name }}" class="img-fluid">
+        <h4>{{ product.name }}</h4>
+        <strong class="product-subtitle text-muted">{{ product.subtitle }}</strong><br>
+    </a>
+    <span class="product-price">{{ (product.price / 100) | number_format(2, ',') }} €</span> <br>
+    
+    {% if product.avgRatings > 0 %}
+    <small class="mt-3"><strong>{{product.comments|length}}</strong> Evaluation{% if product.comments|length > 1 %}s{% endif %} :
+
+        <span class="rating">
+            {% for i in 0..4 %}
+                {% if i <= product.avgRatings %}
+                    <i class="fas fa-star"></i>
+                {% else %}
+                    <i class="far fa-star"></i>
+                {% endif %}
+            {% endfor %}
+        </span>
+    </small>
+
+    {% endif %}
 </div>

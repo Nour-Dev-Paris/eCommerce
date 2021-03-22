@@ -82,9 +82,22 @@ class Order
         return $total;
     }
 
+    // public function setTotal(Float $total) : self
+    // {
+    //     $this->total = $total;
+
+    //     return $this;
+    // }
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getUser(): ?User
@@ -154,6 +167,13 @@ class Order
     {
         return $this->orderDetails;
     }
+
+    // public function setOrderDetails(OrderDetails $orderDetail): self
+    // {
+    //     $this->orderDetails = $orderDetail;
+
+    //     return $this;
+    // }
 
     public function addOrderDetail(OrderDetails $orderDetail): self
     {

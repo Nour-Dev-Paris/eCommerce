@@ -124,10 +124,13 @@ class OrderCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             DateTimeField::new('createdAt', 'Passée le'),
-            TextField::new('user.getFullName', 'Client'),
+            TextField::new('user.getFullName', 'Client')->hideOnForm(),
             TextEditorField::new('delivery', 'Adresse de livraison'),
-            MoneyField::new('total', 'Total produit')->setCurrency('EUR'),
-            TextField::new('carrierName', 'Transporteur'),
+            MoneyField::new('total', 'Total produit')->setCurrency('EUR')->hideOnForm(),
+            ChoiceField::new('carrierName', 'Transporteur')->setChoices([
+                'Colissimo' => 'Colissimo',
+                'Chronopost' => 'Chronopost'
+            ]),
             MoneyField::new('carrierPrice', 'Frais de port')->setCurrency('EUR'),
             ChoiceField::new('state', 'Etat de la commande')->setChoices([
                 'Non payée' => 0,
@@ -135,7 +138,8 @@ class OrderCrudController extends AbstractCrudController
                 'Préparation en cours' => 2,
                 'Livraison en cours' => 3
             ]),
-            ArrayField::new('orderDetails', 'Produits achetés')->hideOnIndex()
+            // ArrayField::new('orderDetails', 'Produits achetés')->hideOnIndex(),
+            ArrayField::new('orderDetails', 'Produits achetés')->hideOnForm()
         ];
     }
 }

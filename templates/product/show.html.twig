@@ -3,36 +3,95 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-info">{{message}}</div>
+    {% endfor %}
 
 <div class="row">
+
     <div class="col-md-6">
         <img src="/uploads/{{ product.illustration }}" alt="{{ product.name }}" class="img-fluid">
     </div>
 
     <div class="col-md-6 my-auto">   
-        <h3>{{ product.name }}</h3>
+        <h3 class="featurette-heading">{{ product.name }}</h3>
 
-        <p>{{ product.subtitle }}</p>
+        <h4 class="text-muted">{{ product.subtitle }}</h4>
         <span class="product-page-price">{{ (product.price / 100) | number_format(2, ',') }} €</span>
         <hr>
         <p>
             {{ product.description }}
         </p>
         <hr>
-        <a href="{{ path('add_to_cart', {'id' : product.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+        <a href="{{ path('add_to_cart', {'id' : product.id }) }}" class="btn btn-primary">Ajouter au panier</a> <br>
+
+        {% if product.avgRatings > 0 %}
+            <p class="mt-3"><strong>{{product.comments|length}}</strong> Evaluation{% if product.comments|length > 1 %}s{% endif %} :
+
+                <span class="rating">
+                    {% for i in 0..4 %}
+                        {% if i <= product.avgRatings %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </span>
+            </p>
+        {% endif %}
     </div>
 </div>
-    <hr>
-    <h3>Nos meilleurs ventes</h3>
-    <p>Découvrez nos produits les plus vendus.</p>
-    <div class="row">
+<hr>
+
+
+{% if app.user %}
+<div class="alert alert-light col-md-6">
+    <h2 class="alert-heading">Votre avis sur le produit</h2>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-info">Confirmer</button>
+    {{ form_end(form) }}
+</div>
+<hr>
+{% else %}
+
+    <p class="title_connected"><strong>Connectez-vous pour laisser un commentaire</strong></p>
+
+{% endif %}
+
+
+{% for comment in product.comments %}
+    <div class="bg-light rounded mb-3 py-3 px-3">
+        <small> {{ comment.author.firstname }} le {{ comment.createdAt|date("m/d/Y") }} :</small>
+        <blockquote class="blockquote_comment">
+            {{ comment.content | raw }}
+        </blockquote>
+        <small>Note : </small>
+
+        <span class="rating">
+            {% for i in 1..5 %}
+                {% if i <= comment.rating %}
+                    <i class="fas fa-star"></i>
+                {% else %}
+                    <i class="far fa-star"></i>
+                {% endif %}
+            {% endfor %}
+        </span>
+    </div>            
+{% endfor %}
+
+<hr>
+
+<h3>Nos meilleurs ventes</h3>
+<p>Découvrez nos produits les plus vendus.</p>
+<div class="row">
     
-        {% for product in products %}
-            <div class="col-md-3">
-                {% include 'product/single_product.html.twig' %}
-            </div>
-        {% endfor %}
-    </div>
+    {% for product in products %}
+        <div class="col-md-3">
+            {% include 'product/single_product.html.twig' %}
+        </div>
+    {% endfor %}
+</div>
 
 
 {% endblock %}

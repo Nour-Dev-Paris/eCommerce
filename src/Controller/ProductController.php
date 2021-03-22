@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Classe\Search;
+use App\Entity\Comment;
 use App\Entity\Product;
 use App\Form\SearchType;
+use App\Form\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,12 +48,31 @@ class ProductController extends AbstractController
     /**
      * @Route("/produit/{slug}", name="product")
      */
-    public function show($slug): Response
+    public function show($slug, Request $request): Response
     {
+
+        $comment = new Comment();
 
         $product = $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
 
         $products = $this->entityManager->getRepository(Product::class)->findByIsBest(1);
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $date = new \DateTime();
+            
+            $comment->setAuthor($this->getUser())
+                    ->setProduct($product)
+                    ->setCreatedAt($date);
+
+            $this->entityManager->persist($comment);
+            $this->entityManager->flush();
+
+            $this->addFlash('notice', 'Votre commentaire a bien été ajouté !');
+        }
         
         if (!$product) {
             return $this->redirectToRoute('products');
@@ -58,7 +80,8 @@ class ProductController extends AbstractController
 
         return $this->render('product/show.html.twig', [
             'product' => $product,
-            'products' => $products
+            'products' => $products,
+            'form' => $form->createView()
         ]);
     }
 }

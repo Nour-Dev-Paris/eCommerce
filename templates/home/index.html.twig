@@ -2,20 +2,51 @@
 
 {% block carousel %}{% endblock %}
 
-{% block title %}Yo{% endblock %}
+{% block title %}Accueil - eCommerce{% endblock %}
 
 {% block content %}
 
 <!-- Three columns of text below the carousel -->
-        <h3>Nos meilleurs ventes</h3>
+        <h2 class="featurette-heading">Nos meilleurs ventes</h2>
 
-        <p>Découvrez les articles les plus vendus.</p>
+        <h4 class="text-muted">Découvrez les articles les plus vendus.</h4>
         <div class="row">
             {% for product in products %}
                 <div class="col-md-3">
                     {% include 'product/single_product.html.twig' %}
                 </div>
             {% endfor %}
+        </div>
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        
+            <ol class="carousel-indicators">
+                {% for key,product in products %}
+                    <li data-target="#myCarousel" data-slide-to="{{key}}" {% if key == 0 %} class="active" {% endif %} ></li>
+                {% endfor %}
+            </ol>
+
+            {# <div class="carousel-inner">
+                {% for key,product in products %}
+
+                    <div class="carousel-item {% if key == 0 %} active {% endif %}">
+                        <div class="col-md-3">
+                            {% include 'product/single_product.html.twig' %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div> #}
+
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            
         </div>
 
 
