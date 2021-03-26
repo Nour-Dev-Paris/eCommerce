@@ -36,8 +36,9 @@ class Cart
                 ];
             }
         }
+        return $this->session->get('cartComplete', $cartComplete);
 
-        return $cartComplete;
+        // return $cartComplete;
     }
 
     public function add($id)

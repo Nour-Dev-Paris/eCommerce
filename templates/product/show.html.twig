@@ -60,7 +60,10 @@
 {% endif %}
 
 
-{% for comment in product.comments %}
+
+
+{% for comment in product.comments|reverse %}
+
     <div class="bg-light rounded mb-3 py-3 px-3">
         <small> {{ comment.author.firstname }} le {{ comment.createdAt|date("m/d/Y") }} :</small>
         <blockquote class="blockquote_comment">

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Cart;
 use App\Classe\Mail;
 use App\Entity\Header;
 use App\Entity\Product;
@@ -23,21 +24,21 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(SessionInterface $session): Response
+    public function index(SessionInterface $session, Cart $cart): Response
     {
         $products = $this->entityManager->getRepository(Product::class)->findByIsBest(1);
         $hearders = $this->entityManager->getRepository(Header::class)->findAll();
 
-        $session->remove('cart');
+        // $session->remove('cart');
 
-        $cart = $session->get('cart');
+        // $cart = $session->get('cart');
 
         // $mail = new Mail();
         // $mail->send('ionisbry@gmail.com', 'Yoka', 'Mon premier mail', 'Mon premier super mail de folie dingue dingue !');
         
         return $this->render('home/index.html.twig', [
             'products' => $products,
-            'headers' => $hearders
+            'headers' => $hearders,
         ]);
     }
 }

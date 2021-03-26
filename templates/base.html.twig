@@ -45,7 +45,7 @@
                     <a class="nav-link" href="{{ path('products') }}">Nos produits</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="">Qui sommes-nous</a>
+                    <a class="nav-link" href="{{ path('description') }}">Qui sommes-nous</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ path('contact') }}">Nous contacter</a>
@@ -58,15 +58,39 @@
                     <a href="{{ path('app_login') }}">Connexion</a> | <a href="{{ path('register') }}">Inscription</a>
                 {% endif %}
             </div>
-            <a href="{{ path('cart') }}"> 
+            <a href="{{ path('cart') }}" id="link_panier"> 
                 <img src="{{ asset('assets/img/shopping-cart.png') }}" alt="Mon Panier" class="cart-icon">
             </a>
         </div>
     </nav>
 </header>
 
-<main role="main">
+    <div class="modal_xp" id="block_panier">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    {% if cartGlobal.getFull| length > 0 %}
+                    
+                    <p class="text-center"><strong>Produit dans le panier :</strong></p> 
+                    {% for product in cartGlobal.getFull %}
+                        <tr>
+                            <th><img src="/uploads/{{ product.product.illustration }}" alt="{{ product.product.name }}"class="img-cart-product"></th>
+                            <td>
+                                {{ product.product.name }} x {{product.quantity}} - {{ ((product.product.price * product.quantity) / 100) | number_format(2, ',') }} € <br>
+                            </td><hr>
+                        </tr>
+                    {% endfor %} 
+                    {% else %}
+                        <p><strong>Aucun produit dans le panier</strong></p>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 
+<main role="main">
+    
     {% if block('carousel') is defined %}
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
         
@@ -117,7 +141,9 @@
 
     <!-- FOOTER -->
     <footer class="footer-custom">
-        {# <p class="float-right"><a href="#">Back to top</a></p> #}
+        <div class="float-right up_to_site">
+            <p class="float-right"><a href="#"><i class="fas fa-arrow-up"></i></a></p>
+        </div>
         <p>
         &copy; 2021 eCommerce <br>
         <small>La boutique avec Symfony 5.2</small><br>
@@ -128,8 +154,10 @@
     </footer>
 
 </main>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="{{ asset('assets/js/main.js')}}"></script>
 <script src="{{ asset('assets/js/bootstrap.bundle.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </body>
     {% block script %}{% endblock %}
 </html>

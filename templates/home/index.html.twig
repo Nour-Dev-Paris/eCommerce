@@ -7,6 +7,7 @@
 {% block content %}
 
 <!-- Three columns of text below the carousel -->
+        
         <h2 class="featurette-heading">Nos meilleurs ventes</h2>
 
         <h4 class="text-muted">Découvrez les articles les plus vendus.</h4>
@@ -25,17 +26,6 @@
                     <li data-target="#myCarousel" data-slide-to="{{key}}" {% if key == 0 %} class="active" {% endif %} ></li>
                 {% endfor %}
             </ol>
-
-            {# <div class="carousel-inner">
-                {% for key,product in products %}
-
-                    <div class="carousel-item {% if key == 0 %} active {% endif %}">
-                        <div class="col-md-3">
-                            {% include 'product/single_product.html.twig' %}
-                        </div>
-                    </div>
-                {% endfor %}
-            </div> #}
 
             <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>

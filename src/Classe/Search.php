@@ -2,6 +2,8 @@
 
 namespace App\Classe;
 
+use App\Entity\Category;
+
 class Search
 {
     /**
@@ -12,7 +14,7 @@ class Search
 
     /**
      *
-     * @var array
+     * @var Category[]
      */
     public $categories = [];
 }

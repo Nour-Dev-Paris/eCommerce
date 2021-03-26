@@ -30,8 +30,6 @@ class CommentType extends AbstractType
                     'placeholder' => 'Merci de saisir votre message'
                 ]
             ])
-            // ->add('product')
-            // ->add('author')
         ;
     }
 

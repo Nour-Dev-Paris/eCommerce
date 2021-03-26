@@ -6,48 +6,54 @@
     <h1>Mon panier</h1>
     <p>Retrouvez l'ensemble des produits que vous avez ajouté à votre panier</p>
 {% if cart| length > 0 %}
-    <table class="table table-striped mt-3">
-        <thead>
-            <tr>
-                <th scope="col">Produit</th>
-                <th scope="col"></th>
-                <th scope="col">Quantité</th>
-                <th scope="col">Prix</th>
-                <th scope="col">Total</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-        {% set total = null %}
-        {% for product in cart %}
+    <div class="container-fluid">
+        <div class="col-md-12">
+        
+            <table class="table table-striped table-responsive-sm mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">Produit</th>
+                        <th scope="col"></th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Total</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% set total = null %}
+                
+                {% for product in cart %}
 
-            <tr>
-                <th><img src="/uploads/{{ product.product.illustration }}" alt="{{ product.product.name }}"class="img-cart-product"></th>
-                <td>
-                    {{ product.product.name }} <br>
-                    <small>{{ product.product.subtitle }}</small>
-                </td>
-                <td>
-                    <a href="{{ path('decrease_to_cart', {'id' : product.product.id}) }}">
-                        <img src="{{ asset('assets/img/minus.png') }}" height="20px" alt="Diminuer la quantité produit">
-                    </a>
-                    <a href="{{ path('add_to_cart', {'id' : product.product.id}) }}">
-                        <img src="{{ asset('assets/img/plus.png') }}" height="20px" alt="Augmenter la quantité produit">
-                    </a>
-                    x {{product.quantity}}
-                </td>
-                <td>{{ (product.product.price / 100) | number_format(2, ',') }} €</td>
-                <td>{{ ((product.product.price * product.quantity) / 100) | number_format(2, ',') }} €</td>
-                <td>
-                    <a href=" {{ path('delete_to_cart', {id : product.product.id }) }} "> 
-                        <img src="{{ asset('assets/img/delete.png') }}" height="20px" alt="Supprimer mon produit">
-                    </a>
-                </td>
-            </tr>
-            {% set total = total + (product.product.price * product.quantity) %}
-        {% endfor %}  
-        </tbody>
-    </table>
+                    <tr>
+                        <th><img src="/uploads/{{ product.product.illustration }}" alt="{{ product.product.name }}"class="img-cart-product"></th>
+                        <td>
+                            {{ product.product.name }} <br>
+                            <small>{{ product.product.subtitle }}</small>
+                        </td>
+                        <td>
+                            <a href="{{ path('decrease_to_cart', {'id' : product.product.id}) }}">
+                                <img src="{{ asset('assets/img/minus.png') }}" height="20px" alt="Diminuer la quantité produit">
+                            </a>
+                            <a href="{{ path('add_to_cart', {'id' : product.product.id}) }}">
+                                <img src="{{ asset('assets/img/plus.png') }}" height="20px" alt="Augmenter la quantité produit">
+                            </a>
+                            x {{product.quantity}}
+                        </td>
+                        <td>{{ (product.product.price / 100) | number_format(2, ',') }} €</td>
+                        <td>{{ ((product.product.price * product.quantity) / 100) | number_format(2, ',') }} €</td>
+                        <td>
+                            <a href=" {{ path('delete_to_cart', {id : product.product.id }) }} "> 
+                                <img src="{{ asset('assets/img/delete.png') }}" height="20px" alt="Supprimer mon produit">
+                            </a>
+                        </td>
+                    </tr>
+                    {% set total = total + (product.product.price * product.quantity) %}
+                {% endfor %}  
+                </tbody>
+            </table>
+        </div>
+    </div>
     <div class="text-right mb-5">
         <b>Nombre de produits : </b> {{ cart | length }} <br>
         <b>Total de mon panier : </b> {{ (total / 100) | number_format(2, ',') }} €<br>

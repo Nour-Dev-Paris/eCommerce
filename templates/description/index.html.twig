@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Qui-sommes{% endblock %}
+
+{% block content %}
+        
+        <h2 class="text-center featurette-heading">Découvrez une entreprise <span class="text-muted">passionnée</span></h2>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Un savoir-faire <span class="text-muted"> depuis 10 ans</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5">
+                <img src="{{ asset('assets/img/first.jpg') }}" alt="Un savoir-faire fantastique" class="img-fluid">
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">Une équipe <span class="text-muted">jeune et dynamique</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="{{ asset('assets/img/second.jpg') }}" alt="Boutique ouverte toute l'année" class="img-fluid">
+            </div>
+        </div>
+
+
+    
+{% endblock %}

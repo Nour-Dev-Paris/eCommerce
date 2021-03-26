@@ -67,7 +67,7 @@ class ProductController extends AbstractController
             $comment->setAuthor($this->getUser())
                     ->setProduct($product)
                     ->setCreatedAt($date);
-
+            
             $this->entityManager->persist($comment);
             $this->entityManager->flush();
 
