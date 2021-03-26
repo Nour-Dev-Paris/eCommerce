@@ -50,6 +50,11 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ path('contact') }}">Nous contacter</a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link navbar_show" href="{{ path('admin') }}">Administration</a>       
+                    </li>
+                {% endif %}
             </ul>
             <div class="navbar-item-custom">           
                 {% if app.user %}

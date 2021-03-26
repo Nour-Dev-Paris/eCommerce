@@ -27,14 +27,14 @@
                     <tbody>
                         {% for order in orders %}
                             <tr>
-                                <td><span class="badge badge-secondary">{{order.reference}}</span></td>
+                                <td><span class="badge badge-info">{{order.reference}}</span></td>
                                 <td>
                                     {% if order.state == 1 %}
-                                        Paiement accepté
+                                        <i class="far fa-thumbs-up" style="color:#27ae60;"></i> Paiement accepté 
                                     {% elseif order.state == 2 %}
-                                        Préparation en cours
+                                        <i class="fas fa-box-open" style="color:#0abde3;"></i> Préparation en cours 
                                     {% elseif order.state == 3 %}
-                                        En cours de livraison
+                                        <i class="fas fa-shipping-fast" style="color:#ff9f43;"></i> En cours de livraison
                                     {% endif %}
                                 </td>
                                 <td>{{order.createdAt|date('d/m/Y') }}</td>
